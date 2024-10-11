@@ -1,0 +1,202 @@
+[
+  {
+    "id": 1,
+    "name": "Grilled Lobster",
+    "category": "Main Course",
+    "price": 200000,
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/7a/Grilled_Lobster_%288558909573%29.jpg",
+    "description": "Indulge in our exquisite Grilled Lobster, a sumptuous delicacy expertly grilled to perfection and served with a rich garlic butter sauce that enhances its natural sweetness.",
+    "rating": 4.8,
+    "count_rating": 150
+  },
+  {
+    "id": 2,
+    "name": "Tuna Steak",
+    "category": "Main Course",
+    "price": 180000,
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/18/Salmon_Fish.JPG",
+    "description": "Experience the freshness of our Tuna Steak, carefully seared to retain its natural flavors and moisture, seasoned to perfection with a blend of herbs.",
+    "rating": 4.5,
+    "count_rating": 120
+  },
+  {
+    "id": 3,
+    "name": "Caesar Salad",
+    "category": "Appetizer",
+    "price": 70000,
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/23/Caesar_salad_%282%29.jpg",
+    "description": "Our Caesar Salad is a vibrant mix of crisp romaine lettuce tossed with a creamy Caesar dressing, crunchy croutons, and grated parmesan cheese.",
+    "rating": 4.6,
+    "count_rating": 80
+  },
+  {
+    "id": 4,
+    "name": "Bruschetta",
+    "category": "Appetizer",
+    "price": 55000,
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/1f/2014_Bruschetta_The_Larder_Chiang_Mai.jpg",
+    "description": "Toasted bread topped with fresh tomatoes, basil, and mozzarella, our Bruschetta is a delightful starter bursting with flavor.",
+    "rating": 4.3,
+    "count_rating": 70
+  },
+  {
+    "id": 5,
+    "name": "Vegan Burger",
+    "category": "Main Course",
+    "price": 120000,
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e0/%D7%94%D7%9E%D7%91%D7%95%D7%A8%D7%92%D7%A8_%D7%98%D7%91%D7%A2%D7%95%D7%A0%D7%99.jpg",
+    "description": "Our Vegan Burger features a delicious plant-based patty, topped with fresh vegetables and creamy avocado for a healthy, satisfying meal.",
+    "rating": 4.7,
+    "count_rating": 90
+  },
+  {
+    "id": 6,
+    "name": "Mango Smoothie",
+    "category": "Beverage",
+    "price": 45000,
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/0c/Kiwi_Smoothie.jpg",
+    "description": "Refreshing and creamy, our Mango Smoothie is blended with yogurt and honey for a tropical treat that's perfect for any time of day.",
+    "rating": 4.4,
+    "count_rating": 60
+  },
+  {
+    "id": 7,
+    "name": "Pepperoni Pizza",
+    "category": "Main Course",
+    "price": 170000,
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/0c/Pepperoni_Pizza_%2829204589095%29.jpg",
+    "description": "Our Pepperoni Pizza is a classic favorite, topped with generous slices of pepperoni, gooey mozzarella cheese, and a rich tomato sauce.",
+    "rating": 4.5,
+    "count_rating": 200
+  },
+  {
+    "id": 8,
+    "name": "Chocolate Lava Cake",
+    "category": "Dessert",
+    "price": 80000,
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6b/Chocolate_Fondant.jpg",
+    "description": "Decadent and indulgent, our Chocolate Lava Cake features a molten chocolate center that flows out with each bite, served warm for maximum delight.",
+    "rating": 4.9,
+    "count_rating": 110
+  },
+  {
+    "id": 9,
+    "name": "Chicken Satay",
+    "category": "Main Course",
+    "price": 85000,
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/ad/Sate_Ponorogo.jpg",
+    "description": "Grilled to perfection, our Chicken Satay skewers are served with a creamy peanut sauce that adds a delightful contrast of flavors.",
+    "rating": 4.6,
+    "count_rating": 85
+  },
+  {
+    "id": 10,
+    "name": "Tiramisu",
+    "category": "Dessert",
+    "price": 90000,
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Classic_Italian_Tiramisu-3_%2829989504485%29.jpg",
+    "description": "This classic Italian dessert is made of layers of coffee-soaked ladyfingers and rich mascarpone cheese, making it a perfect end to any meal.",
+    "rating": 4.8,
+    "count_rating": 95
+  },
+  {
+    "id": 11,
+    "name": "Espresso Martini",
+    "category": "Beverage",
+    "price": 125000,
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/55/Bistrot_Bruno_Loubet%2C_Clerkenwell%2C_London_%284574785649%29.jpg",
+    "description": "A perfect blend of espresso and vodka, our Espresso Martini is topped with coffee beans for an elegant touch that coffee lovers will adore.",
+    "rating": 4.5,
+    "count_rating": 50
+  },
+  {
+    "id": 12,
+    "name": "Iced Americano",
+    "category": "Beverage",
+    "price": 35000,
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/41/Espresso_Americano.jpeg",
+    "description": "Chilled and refreshing, our Iced Americano is a smooth coffee beverage that captures the rich flavor of espresso with a cool twist.",
+    "rating": 4.2,
+    "count_rating": 40
+  },
+  {
+    "id": 13,
+    "name": "Salmon Sashimi",
+    "category": "Appetizer",
+    "price": 180000,
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/21/Sashimi.jpg",
+    "description": "Enjoy fresh slices of salmon served with soy sauce and wasabi, perfect for sashimi lovers seeking a high-quality, authentic experience.",
+    "rating": 4.7,
+    "count_rating": 100
+  },
+  {
+    "id": 14,
+    "name": "French Fries",
+    "category": "Side Dish",
+    "price": 40000,
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/83/French_Fries.JPG",
+    "description": "Our French Fries are crispy and golden, the perfect side dish for dipping in your favorite sauces or enjoying on their own.",
+    "rating": 4.1,
+    "count_rating": 75
+  },
+  {
+    "id": 15,
+    "name": "Green Curry",
+    "category": "Main Course",
+    "price": 125000,
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e5/Thai_green_chicken_curry_and_roti.jpg",
+    "description": "Spicy and aromatic, our Green Curry is made with fresh vegetables and coconut milk for a comforting and flavorful meal.",
+    "rating": 4.6,
+    "count_rating": 65
+  },
+  {
+    "id": 16,
+    "name": "Mashed Potatoes",
+    "category": "Side Dish",
+    "price": 45000,
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/04/Mashed_potatoes.jpg",
+    "description": "Creamy and buttery, our Mashed Potatoes are seasoned with herbs for a comforting side that pairs well with any main course.",
+    "rating": 4.3,
+    "count_rating": 55
+  },
+  {
+    "id": 17,
+    "name": "Spaghetti Carbonara",
+    "category": "Main Course",
+    "price": 140000,
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/33/Espaguetis_carbonara.jpg",
+    "description": "Delight in our Spaghetti Carbonara, a classic Italian pasta dish tossed with eggs, cheese, pancetta, and pepper for a rich and savory flavor.",
+    "rating": 4.5,
+    "count_rating": 120
+  },
+  {
+    "id": 18,
+    "name": "Garlic Bread",
+    "category": "Side Dish",
+    "price": 30000,
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/59/Garlicbread.jpg",
+    "description": "Toasted bread spread with garlic butter, our Garlic Bread is an irresistible side that complements any meal with its aromatic flavor.",
+    "rating": 4.0,
+    "count_rating": 65
+  },
+  {
+    "id": 19,
+    "name": "Orange Juice",
+    "category": "Beverage",
+    "price": 35000,
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/05/Orangejuice.jpg",
+    "description": "Freshly squeezed from the best oranges, our Orange Juice is a refreshing drink that captures the bright and tangy flavor of the fruit.",
+    "rating": 4.5,
+    "count_rating": 85
+  },
+  {
+    "id": 20,
+    "name": "Panna Cotta",
+    "category": "Dessert",
+    "price": 75000,
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/80/Panna_Cotta_with_cream_and_garnish.jpg",
+    "description": "Our Panna Cotta is a creamy dessert topped with a luscious berry sauce, offering a perfect blend of sweetness and creaminess in every bite.",
+    "rating": 4.8,
+    "count_rating": 90
+  }
+]

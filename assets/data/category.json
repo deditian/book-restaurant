@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "Main Course",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/33/Sirloin_steak.JPG"
+  },
+  {
+    "id": 2,
+    "name": "Appetizer",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/a4/Floris_Claesz._van_Dyck_001.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Dessert",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/ab/Desserts.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Beverage",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/45/A_small_cup_of_coffee.JPG"
+  },
+  {
+    "id": 5,
+    "name": "Side Dish",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Flickr_stuart_spivack_173603796--Macaroni_and_cheese.jpg"
+  },
+  {
+    "id": 6,
+    "name": "Snack",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/91/Gorp.jpg"
+  }
+]
