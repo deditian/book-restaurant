@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../controller/DataController.dart';
+import '../controller/menus_controller.dart';
 import 'package:get/get.dart';
 
+import '../controller/order_controller.dart';
 import '../material/order_bottomsheet.dart';
 import '../model/menu.dart';
+import 'orders_screen.dart';
 
 class SalesTransaction extends StatefulWidget {
   const SalesTransaction({super.key});
@@ -14,6 +16,9 @@ class SalesTransaction extends StatefulWidget {
 }
 
 class _SalesTransactionState extends State<SalesTransaction> {
+  final OrderController orderController = Get.put(OrderController());
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,23 +30,69 @@ class _SalesTransactionState extends State<SalesTransaction> {
             Container(),
           ],
         ),
+        actions: [
+          // Cart icon with order count
+          Obx(() {
+            return Stack(
+              children: [
+                IconButton(
+                  icon: Icon(Icons.shopping_cart),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => OrderListScreen()),
+                    );
+                  },
+                ),
+                // Show number of orders
+                if (orderController.orderCount > 0)
+                  Positioned(
+                    right: 1,
+                    top: 1,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 2, vertical: 1),
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      constraints: BoxConstraints(
+                        minWidth: 5,
+                        minHeight: 5,
+                      ),
+                      child: Text(
+                        '${orderController.orderCount}',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+              ],
+            );
+          }),
+        ],
       ),
-      body: SalesTransactionScreen(),
+      body: SalesTransactionScreen(orderController),
     );
   }
 }
 
 class SalesTransactionScreen extends StatefulWidget {
-  const SalesTransactionScreen({super.key});
+  final OrderController orderController;
+
+  const SalesTransactionScreen(
+      this.orderController,
+      {super.key});
+
 
   @override
   State<SalesTransactionScreen> createState() => _SalesTransactionScreenState();
 }
 
 class _SalesTransactionScreenState extends State<SalesTransactionScreen> {
-  final DataController controller = Get.put(DataController());
-
-
+  final MenusController controller = Get.put(MenusController());
 
 
 
@@ -53,7 +104,10 @@ class _SalesTransactionScreenState extends State<SalesTransactionScreen> {
         return OrderBottomSheet(
           menu: selectedMenu,
           onMenu: (orderedMenu) {
-            print('Ordered Menu: ${orderedMenu.name} with count: ${orderedMenu.countOrder}   Date: ${orderedMenu.dateOrder}');
+            print('Ordered Menu: ${orderedMenu.name} with count: ${orderedMenu.qtyOrder}   Date: ${orderedMenu.dateOrder}');
+
+            widget.orderController.addOrder(orderedMenu);
+
 
           },
         );
@@ -73,12 +127,13 @@ class _SalesTransactionScreenState extends State<SalesTransactionScreen> {
           Container(
             height: 140,
             child: Obx(() {
-              return controller.items.isNotEmpty
+              return controller.itemsCategory.isNotEmpty
                   ? ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: controller.items.length,
+                itemCount: controller.itemsCategory.length,
                 itemBuilder: (context, index) {
-                  bool isSelected = controller.selectedCategory.value == controller.items[index]['name'];
+                  var category = controller.itemsCategory[index];
+                  bool isSelected = controller.selectedCategory.value == category.name;
 
                   return Card(
                     elevation: isSelected ? 4 : 1,
@@ -86,7 +141,7 @@ class _SalesTransactionScreenState extends State<SalesTransactionScreen> {
                     child: InkWell(
                       onTap: () {
                         setState(() {
-                          controller.setCategory(controller.items[index]['name']);
+                          controller.setCategory(category.name);
                         });
 
                       },
@@ -104,7 +159,7 @@ class _SalesTransactionScreenState extends State<SalesTransactionScreen> {
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(15.0),
                                     child: Image.network(
-                                      controller.items[index]['image_url'],
+                                      category.imageUrl,
                                       width: 50,
                                       height: 50,
                                       fit: BoxFit.cover,
@@ -116,7 +171,7 @@ class _SalesTransactionScreenState extends State<SalesTransactionScreen> {
                                 width: 80,
                                 child: Text(
                                   textAlign: TextAlign.center,
-                                  controller.items[index]['name'],
+                                  category.name,
                                   style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
@@ -150,7 +205,7 @@ class _SalesTransactionScreenState extends State<SalesTransactionScreen> {
                       elevation: 1,
                       child: InkWell(
                         onTap: () {
-                            showOrderBottomSheet(Menu.fromJson(menu));
+                            showOrderBottomSheet(menu);
                         },
                         child: Center(
                           child: Container(
@@ -166,7 +221,7 @@ class _SalesTransactionScreenState extends State<SalesTransactionScreen> {
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(15.0),
                                       child: Image.network(
-                                        menu['image_url'],
+                                        menu.imageUrl,
                                         width: 50,
                                         height: 50,
                                         fit: BoxFit.cover,
@@ -178,7 +233,7 @@ class _SalesTransactionScreenState extends State<SalesTransactionScreen> {
                                   width: 80,
                                   child: Text(
                                     textAlign: TextAlign.center,
-                                    menu['name'],
+                                    menu.name,
                                     style: TextStyle(fontSize: 14),
                                   ),
                                 ),
