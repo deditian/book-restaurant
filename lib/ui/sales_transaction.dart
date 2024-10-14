@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import '../controller/DataController.dart';
 import 'package:get/get.dart';
 
+import '../material/order_bottomsheet.dart';
+import '../model/menu.dart';
+
 class SalesTransaction extends StatefulWidget {
   const SalesTransaction({super.key});
 
@@ -37,6 +40,26 @@ class SalesTransactionScreen extends StatefulWidget {
 
 class _SalesTransactionScreenState extends State<SalesTransactionScreen> {
   final DataController controller = Get.put(DataController());
+
+
+
+
+
+  void showOrderBottomSheet(Menu selectedMenu) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true, // Membuat BottomSheet scrollable
+      builder: (BuildContext context) {
+        return OrderBottomSheet(
+          menu: selectedMenu,
+          onMenu: (orderedMenu) {
+            print('Ordered Menu: ${orderedMenu.name} with count: ${orderedMenu.countOrder}   Date: ${orderedMenu.dateOrder}');
+
+          },
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +150,7 @@ class _SalesTransactionScreenState extends State<SalesTransactionScreen> {
                       elevation: 1,
                       child: InkWell(
                         onTap: () {
-                          // Handle menu item tap here
+                            showOrderBottomSheet(Menu.fromJson(menu));
                         },
                         child: Center(
                           child: Container(
@@ -175,5 +198,7 @@ class _SalesTransactionScreenState extends State<SalesTransactionScreen> {
       ),
     );
   }
+
+
 }
 
