@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../controller/DataController.dart';
 import 'package:get/get.dart';
 
@@ -15,24 +14,19 @@ class _SalesTransactionState extends State<SalesTransaction> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text("Restorant",style: TextStyle(fontSize: 16),),
-              Container(
-
-              ),
-            ],
-          ),
+      appBar: AppBar(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text("Restaurant", style: TextStyle(fontSize: 16)),
+            Container(),
+          ],
         ),
-
-      body: SalesTransactionScreen()
+      ),
+      body: SalesTransactionScreen(),
     );
   }
 }
-
-
 
 class SalesTransactionScreen extends StatefulWidget {
   const SalesTransactionScreen({super.key});
@@ -52,25 +46,92 @@ class _SalesTransactionScreenState extends State<SalesTransactionScreen> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Category", style: TextStyle(fontSize: 15),),
-
+          Text("Category", style: TextStyle(fontSize: 15)),
           Container(
-            height: 120,
+            height: 140,
             child: Obx(() {
               return controller.items.isNotEmpty
                   ? ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: controller.items.length,
                 itemBuilder: (context, index) {
-                  return
-                    Card(
+                  bool isSelected = controller.selectedCategory.value == controller.items[index]['name'];
+
+                  return Card(
+                    elevation: isSelected ? 4 : 1,
+                    color: isSelected ? Colors.blue.withOpacity(0.2) : Colors.white,
+                    child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          controller.setCategory(controller.items[index]['name']);
+                        });
+
+                      },
+                      child: Center(
+                        child: Container(
+                          padding: EdgeInsets.all(8.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: 70,
+                                height: 70,
+                                child: Center(
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(15.0),
+                                    child: Image.network(
+                                      controller.items[index]['image_url'],
+                                      width: 50,
+                                      height: 50,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                width: 80,
+                                child: Text(
+                                  textAlign: TextAlign.center,
+                                  controller.items[index]['name'],
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                                    color: isSelected ? Colors.white : Colors.black,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              )
+                  : Center(child: CircularProgressIndicator());
+            }),
+          ),
+          SizedBox(height: 10),
+          Text("Menu", style: TextStyle(fontSize: 15)),
+          Expanded(
+            child: Center(
+              child: Obx(() {
+                return controller.itemsMenu.isNotEmpty
+                    ? GridView.count(
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 16,
+                  children: controller.itemsMenu.map((menu) {
+                    return Card(
                       elevation: 1,
                       child: InkWell(
-                        onTap: (){
-
+                        onTap: () {
+                          // Handle menu item tap here
                         },
                         child: Center(
                           child: Container(
+                            padding: EdgeInsets.all(8.0),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -80,105 +141,33 @@ class _SalesTransactionScreenState extends State<SalesTransactionScreen> {
                                   height: 70,
                                   child: Center(
                                     child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(15.0), // Ganti nilai sesuai keinginan
+                                      borderRadius: BorderRadius.circular(15.0),
                                       child: Image.network(
-                                        controller.items[index]['image_url'],
-                                        width: 50, // Sesuaikan ukuran
-                                        height: 50, // Sesuaikan ukuran
+                                        menu['image_url'],
+                                        width: 50,
+                                        height: 50,
                                         fit: BoxFit.cover,
                                       ),
                                     ),
                                   ),
                                 ),
-
                                 Container(
                                   width: 80,
                                   child: Text(
                                     textAlign: TextAlign.center,
-                                    controller.items[index]['name'],
+                                    menu['name'],
                                     style: TextStyle(fontSize: 14),
                                   ),
-
                                 ),
                               ],
                             ),
-
                           ),
-
                         ),
                       ),
-
                     );
-                },
-              )
-                  : Center(child: CircularProgressIndicator());
-            }),
-          ),
-
-          SizedBox(height: 10,),
-
-          Text("Menu", style: TextStyle(fontSize: 15),),
-
-          Expanded(
-            child: Center(
-              child: Obx(() {
-                return controller.itemsMenu.isNotEmpty
-                    ? GridView.count(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 16,
-                    mainAxisSpacing: 16,
-                    children: controller.itemsMenu.map((menu) {
-                      return
-                        Card(
-                          elevation: 1,
-                          child: InkWell(
-                            onTap: (){
-
-                            },
-                            child: Center(
-                              child: Container(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      width: 70,
-                                      height: 70,
-                                      child: Center(
-                                        child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(15.0), // Ganti nilai sesuai keinginan
-                                          child: Image.network(
-                                            menu['image_url'],
-                                            width: 50, // Sesuaikan ukuran
-                                            height: 50, // Sesuaikan ukuran
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-
-                                    Container(
-                                      width: 80,
-                                      child: Text(
-                                        textAlign: TextAlign.center,
-                                        menu['name'],
-                                        style: TextStyle(fontSize: 14),
-                                      ),
-
-                                    ),
-                                  ],
-                                ),
-
-                              ),
-
-                            ),
-                          ),
-
-                        );
-                    }).toList()
-
+                  }).toList(),
                 )
-                    : Center(child: CircularProgressIndicator());
+                    : Center(child: Text('No menu items available.'));
               }),
             ),
           ),
@@ -187,10 +176,4 @@ class _SalesTransactionScreenState extends State<SalesTransactionScreen> {
     );
   }
 }
-
-
-
-
-
-
 
