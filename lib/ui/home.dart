@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
       case 2:
         return ProductSettings();
       case 1:
-        return const TableManagement();
+        return TableManagement();
       default:
         return const SalesTransaction();
     }

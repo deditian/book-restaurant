@@ -6,8 +6,7 @@ class Menu {
   final double price;
   final double rating;
   final int countRating;
-  int? qtyOrder;
-  String? dateOrder;
+  int? qty;
   String? category;
 
   Menu({
@@ -18,8 +17,7 @@ class Menu {
     required this.price,
     required this.rating,
     required this.countRating,
-    this.qtyOrder,
-    this.dateOrder,
+    this.qty,
     this.category,
   });
 
@@ -32,8 +30,7 @@ class Menu {
       price: json['price'].toDouble(),
       rating: json['rating'].toDouble(),
       countRating: json['count_rating'],
-      qtyOrder: json['qty_order'] ?? 0,
-      dateOrder: json['date_order'],
+      qty: json['qty'],
       category: json['category'],
     );
   }
@@ -47,8 +44,7 @@ class Menu {
       'price': price,
       'rating': rating,
       'count_rating': countRating,
-      'qty_order': qtyOrder,
-      'date_order': dateOrder,
+      'qty': qty,
       'category': category,
     };
   }

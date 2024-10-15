@@ -21,34 +21,33 @@ class OrderController extends GetxController {
 
   void addOrder(Menu order) {
     orders.add(order);
-    saveOrders();
+    _saveOrders();
   }
 
   void removeOrder(int index) {
     orders.removeAt(index);
-    saveOrders();
+    _saveOrders();
   }
-
-
-  void updateOrderCount(int index, int count) {
-
-    if (count > 0) {
-      orders[index].qtyOrder = count;
-      orders.refresh();
-      saveOrders();
-    }
-  }
-
 
   void incrementOrderCount(int index) {
-    updateOrderCount(index, orders[index].qtyOrder! + 1);
+    _updateOrderCount(index, orders[index].qty! + 1);
   }
 
   void decrementOrderCount(int index) {
-    updateOrderCount(index, orders[index].qtyOrder! - 1);
+    _updateOrderCount(index, orders[index].qty! - 1);
   }
 
-  void saveOrders() {
+
+  void _updateOrderCount(int index, int count) {
+
+    if (count > 0) {
+      orders[index].qty = count;
+      orders.refresh();
+      _saveOrders();
+    }
+  }
+
+  void _saveOrders() {
     List ordersJson = orders.map((order) => order.toJson()).toList();
     storage.write('orders', ordersJson);
   }

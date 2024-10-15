@@ -25,8 +25,6 @@ class _OrderListScreenState extends State<OrderListScreen> {
             itemBuilder: (context, index) {
               var order = orderController.orders[index];
 
-              debugPrint("ordernya  ${order.qtyOrder}");
-
               return Card(
                 elevation: 2,
                 margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
@@ -70,12 +68,12 @@ class _OrderListScreenState extends State<OrderListScreen> {
                               IconButton(
                                 icon: Icon(Icons.remove),
                                 onPressed: () {
-                                  if (order.qtyOrder! > 1) {
+                                  if (order.qty! > 1) {
                                     orderController.decrementOrderCount(index);
                                   }
                                 },
                               ),
-                              Text('${order.qtyOrder}'),
+                              Text('${order.qty}'),
                               IconButton(
                                 icon: Icon(Icons.add),
                                 onPressed: () {

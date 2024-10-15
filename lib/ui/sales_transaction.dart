@@ -104,11 +104,7 @@ class _SalesTransactionScreenState extends State<SalesTransactionScreen> {
         return OrderBottomSheet(
           menu: selectedMenu,
           onMenu: (orderedMenu) {
-            print('Ordered Menu: ${orderedMenu.name} with count: ${orderedMenu.qtyOrder}   Date: ${orderedMenu.dateOrder}');
-
             widget.orderController.addOrder(orderedMenu);
-
-
           },
         );
       },

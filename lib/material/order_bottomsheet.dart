@@ -121,14 +121,15 @@ class _OrderBottomSheetState extends State<OrderBottomSheet> {
                     id: widget.menu.id,
                     name: widget.menu.name,
                     imageUrl: widget.menu.imageUrl,
-                    qtyOrder: count,
+                    qty: count,
                     description: widget.menu.description,
-                    dateOrder: DateTime.now().toString().substring(0, 16),
+                    // dateOrder: DateTime.now().toString().substring(0, 16),
                     category:  widget.menu.category,
                     price: widget.menu.price,
                     rating: widget.menu.rating,
                     countRating: widget.menu.countRating,
-                  ) ;
+                  );
+
                   widget.onMenu(menu);
                   Navigator.pop(context);
                 },

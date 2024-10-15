@@ -1,0 +1,49 @@
+{
+  "sections_table": [
+    {
+      "section": "A",
+      "tables": [
+        { "id": 1, "tableNumber": "A1", "status": "available" },
+        { "id": 2, "tableNumber": "A2", "status": "available" },
+        { "id": 3, "tableNumber": "A3", "status": "available" },
+        { "id": 4, "tableNumber": "A4", "status": "available" },
+        { "id": 5, "tableNumber": "A5", "status": "available" },
+        { "id": 6, "tableNumber": "A6", "status": "available" },
+        { "id": 7, "tableNumber": "A7", "status": "available" },
+        { "id": 8, "tableNumber": "A8", "status": "available" },
+        { "id": 9, "tableNumber": "A9", "status": "available" },
+        { "id": 10, "tableNumber": "A10", "status": "available" }
+      ]
+    },
+    {
+      "section": "B",
+      "tables": [
+        { "id": 11, "tableNumber": "B1", "status": "available" },
+        { "id": 12, "tableNumber": "B2", "status": "available" },
+        { "id": 13, "tableNumber": "B3", "status": "available" },
+        { "id": 14, "tableNumber": "B4", "status": "available" },
+        { "id": 15, "tableNumber": "B5", "status": "available" },
+        { "id": 16, "tableNumber": "B6", "status": "available" },
+        { "id": 17, "tableNumber": "B7", "status": "available" },
+        { "id": 18, "tableNumber": "B8", "status": "available" },
+        { "id": 19, "tableNumber": "B9", "status": "available" },
+        { "id": 20, "tableNumber": "B10", "status": "available" }
+      ]
+    },
+    {
+      "section": "C",
+      "tables": [
+        { "id": 21, "tableNumber": "C1", "status": "available" },
+        { "id": 22, "tableNumber": "C2", "status": "available" },
+        { "id": 23, "tableNumber": "C3", "status": "available" },
+        { "id": 24, "tableNumber": "C4", "status": "available" },
+        { "id": 25, "tableNumber": "C5", "status": "available" },
+        { "id": 26, "tableNumber": "C6", "status": "available" },
+        { "id": 27, "tableNumber": "C7", "status": "available" },
+        { "id": 28, "tableNumber": "C8", "status": "available" },
+        { "id": 29, "tableNumber": "C9", "status": "available" },
+        { "id": 30, "tableNumber": "C10", "status": "available" }
+      ]
+    }
+  ]
+}
