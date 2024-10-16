@@ -26,15 +26,19 @@ class SectionsTable {
 class TableModel {
   final int id;
   final String tableNumber;
-  String status;
+  int? idOrder;
 
-  TableModel({required this.id, required this.tableNumber, required this.status});
+  TableModel({
+    required this.id,
+    required this.tableNumber,
+    this.idOrder,
+  });
 
   factory TableModel.fromJson(Map<String, dynamic> json) {
     return TableModel(
       id: json['id'],
       tableNumber: json['tableNumber'],
-      status: json['status'],
+      idOrder: json['id_order']
     );
   }
 
@@ -42,7 +46,7 @@ class TableModel {
     return {
       'id': id,
       'tableNumber': tableNumber,
-      'status': status,
+      'id_order': idOrder,
     };
   }
 }

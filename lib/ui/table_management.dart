@@ -1,3 +1,9 @@
+import 'dart:math';
+
+import 'package:book_restorant/controller/menus_controller.dart';
+import 'package:book_restorant/controller/order_controller.dart';
+import 'package:book_restorant/model/order.dart';
+import 'package:book_restorant/ui/utils.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
@@ -12,9 +18,17 @@ class TableManagement extends StatefulWidget {
 
 class _TableManagementState extends State<TableManagement> {
   final TableController tableController = Get.put(TableController());
+  final MenusController menusController = Get.put(MenusController());
+  final OrderController orderController = Get.put(OrderController());
+
+
 
   @override
   Widget build(BuildContext context) {
+
+    // debugPrint("isinyaaa   ${orderController.getAllOrders()}");
+    debugPrint("isinyaaaORDER   ${orderController.loadOrder()?.toJson()}");
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Table Management'),
@@ -41,7 +55,7 @@ class _TableManagementState extends State<TableManagement> {
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 5, // 5 columns
+                        crossAxisCount: 5,
                         mainAxisSpacing: 8,
                         crossAxisSpacing: 8,
                         childAspectRatio: 1.0,
@@ -49,18 +63,21 @@ class _TableManagementState extends State<TableManagement> {
                       itemCount: section.tables.length,
                       itemBuilder: (context, tableIndex) {
                         final table = section.tables[tableIndex];
-                        return GestureDetector(
+                        return InkWell (
                           onTap: () {
                             setState(() {
-                              // Simulate table booking status change on tap
-                              table.status = table.status == 'available'
-                                  ? 'occupied'
-                                  : 'available';
+                              var order = Order(id: DateTime.now().microsecond,
+                                  date: Util.formatDateTime(),
+                                  idTable: table.id ,
+                                  idMenu: menusController.getPickedIds());
+                              orderController.saveOrder(order);
+
+
                             });
                           },
                           child: Container(
                             decoration: BoxDecoration(
-                              color: table.status == 'available'
+                              color: table.idOrder == null // kalo meja kosong maka hijau
                                   ? Colors.green[300]
                                   : Colors.red[300],
                               borderRadius: BorderRadius.circular(8),

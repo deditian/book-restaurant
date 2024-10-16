@@ -3,54 +3,35 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
+import '../model/order.dart';
+
 
 class OrderController extends GetxController {
-  final storage = GetStorage();
-  var orders = <Menu>[].obs;
+  final box = GetStorage();
 
-  @override
-  void onInit() {
-    super.onInit();
-    loadOrders();
-  }
-
-  void loadOrders() {
-    List ordersJson = storage.read('orders') ?? [];
-    orders.value = ordersJson.map((json) => Menu.fromJson(json)).toList();
-  }
-
-  void addOrder(Menu order) {
-    orders.add(order);
-    _saveOrders();
-  }
-
-  void removeOrder(int index) {
-    orders.removeAt(index);
-    _saveOrders();
-  }
-
-  void incrementOrderCount(int index) {
-    _updateOrderCount(index, orders[index].qty! + 1);
-  }
-
-  void decrementOrderCount(int index) {
-    _updateOrderCount(index, orders[index].qty! - 1);
+  void saveOrder(Order order) {
+    debugPrint("SAVENYA  ${order.toJson()}");
+    box.write('order', order.toJson());
   }
 
 
-  void _updateOrderCount(int index, int count) {
+  List<Order> getAllOrders() {
+    List storedOrders = box.read('order') ?? [];
+    // List<dynamic> storedOrders = box.read<List<Order>>('order') ?? [];
+    return storedOrders.map((json) => Order.fromJson(json)).toList();
+  }
 
-    if (count > 0) {
-      orders[index].qty = count;
-      orders.refresh();
-      _saveOrders();
+
+  Order? loadOrder() {
+    final box = GetStorage();
+
+    Map<String, dynamic>? json = box.read<Map<String, dynamic>>('order');
+
+    if (json != null) {
+      return Order.fromJson(json);
     }
+
+    return null;
   }
 
-  void _saveOrders() {
-    List ordersJson = orders.map((order) => order.toJson()).toList();
-    storage.write('orders', ordersJson);
-  }
-
-  int get orderCount => orders.length;
 }

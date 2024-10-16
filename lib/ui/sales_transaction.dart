@@ -1,3 +1,4 @@
+import 'package:book_restorant/controller/category_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../controller/menus_controller.dart';
@@ -16,7 +17,7 @@ class SalesTransaction extends StatefulWidget {
 }
 
 class _SalesTransactionState extends State<SalesTransaction> {
-  final OrderController orderController = Get.put(OrderController());
+  final MenusController menusController = Get.put(MenusController());
 
 
   @override
@@ -45,7 +46,7 @@ class _SalesTransactionState extends State<SalesTransaction> {
                   },
                 ),
                 // Show number of orders
-                if (orderController.orderCount > 0)
+                if (menusController.orderCount > 0)
                   Positioned(
                     right: 1,
                     top: 1,
@@ -60,7 +61,7 @@ class _SalesTransactionState extends State<SalesTransaction> {
                         minHeight: 5,
                       ),
                       child: Text(
-                        '${orderController.orderCount}',
+                        '${menusController.orderCount}',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 10,
@@ -74,16 +75,16 @@ class _SalesTransactionState extends State<SalesTransaction> {
           }),
         ],
       ),
-      body: SalesTransactionScreen(orderController),
+      body: SalesTransactionScreen(menusController),
     );
   }
 }
 
 class SalesTransactionScreen extends StatefulWidget {
-  final OrderController orderController;
+  final MenusController menuscontroller;
 
   const SalesTransactionScreen(
-      this.orderController,
+      this.menuscontroller,
       {super.key});
 
 
@@ -92,7 +93,7 @@ class SalesTransactionScreen extends StatefulWidget {
 }
 
 class _SalesTransactionScreenState extends State<SalesTransactionScreen> {
-  final MenusController controller = Get.put(MenusController());
+  final CategoryController controller = Get.put(CategoryController());
 
 
 
@@ -104,7 +105,7 @@ class _SalesTransactionScreenState extends State<SalesTransactionScreen> {
         return OrderBottomSheet(
           menu: selectedMenu,
           onMenu: (orderedMenu) {
-            widget.orderController.addOrder(orderedMenu);
+            widget.menuscontroller.addOrder(orderedMenu);
           },
         );
       },
@@ -191,12 +192,12 @@ class _SalesTransactionScreenState extends State<SalesTransactionScreen> {
           Expanded(
             child: Center(
               child: Obx(() {
-                return controller.itemsMenu.isNotEmpty
+                return widget.menuscontroller.itemsMenu.isNotEmpty
                     ? GridView.count(
                   crossAxisCount: 3,
                   crossAxisSpacing: 16,
                   mainAxisSpacing: 16,
-                  children: controller.itemsMenu.map((menu) {
+                  children: widget.menuscontroller.itemsMenu.map((menu) {
                     return Card(
                       elevation: 1,
                       child: InkWell(

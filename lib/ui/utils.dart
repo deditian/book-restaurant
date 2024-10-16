@@ -14,4 +14,11 @@ class Util {
       throw Exception("Failed to load JSON data: $e");
     }
   }
+
+  static String formatDateTime(){
+    DateTime now = DateTime.now();
+    String currentDate = "${now.day}-${now.month}-${now.year}";
+    String currentTime = "${now.hour}:${now.minute}";
+    return "${currentDate} - ${currentTime}";
+  }
 }

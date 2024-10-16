@@ -1,6 +1,7 @@
+import 'package:book_restorant/ui/table_management.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../controller/order_controller.dart';
+import '../controller/menus_controller.dart';
 
 class OrderListScreen extends StatefulWidget {
   @override
@@ -8,23 +9,33 @@ class OrderListScreen extends StatefulWidget {
 }
 
 class _OrderListScreenState extends State<OrderListScreen> {
-  final OrderController orderController = Get.put(OrderController());
+  final MenusController menusController = Get.put(MenusController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Order List"),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.book_rounded),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TableManagement()),
+              );
+            },
+          )
+        ],
       ),
       body: Obx(() {
-        if (orderController.orders.isEmpty) {
+        if (menusController.menupick.isEmpty) {
           return Center(child: Text("No orders found"));
         } else {
           return ListView.builder(
-            itemCount: orderController.orders.length,
+            itemCount: menusController.menupick.length,
             itemBuilder: (context, index) {
-              var order = orderController.orders[index];
-
+              var order = menusController.menupick[index];
               return Card(
                 elevation: 2,
                 margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
@@ -69,7 +80,7 @@ class _OrderListScreenState extends State<OrderListScreen> {
                                 icon: Icon(Icons.remove),
                                 onPressed: () {
                                   if (order.qty! > 1) {
-                                    orderController.decrementOrderCount(index);
+                                    menusController.decrementOrderCount(index);
                                   }
                                 },
                               ),
@@ -77,7 +88,7 @@ class _OrderListScreenState extends State<OrderListScreen> {
                               IconButton(
                                 icon: Icon(Icons.add),
                                 onPressed: () {
-                                  orderController.incrementOrderCount(index);
+                                  menusController.incrementOrderCount(index);
                                 },
                               ),
                             ],
@@ -85,7 +96,7 @@ class _OrderListScreenState extends State<OrderListScreen> {
                           IconButton(
                             icon: Icon(Icons.delete, color: Colors.red),
                             onPressed: () {
-                              orderController.removeOrder(index);
+                              menusController.removeOrder(index);
                             },
                           ),
                         ],
