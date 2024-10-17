@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import '../controller/menus_controller.dart';
 import 'package:get/get.dart';
 
-import '../controller/order_controller.dart';
-import '../material/order_bottomsheet.dart';
+import '../material/menu_bottomsheet.dart';
 import '../model/menu.dart';
 import 'orders_screen.dart';
 
@@ -102,7 +101,7 @@ class _SalesTransactionScreenState extends State<SalesTransactionScreen> {
       context: context,
       isScrollControlled: true, // Membuat BottomSheet scrollable
       builder: (BuildContext context) {
-        return OrderBottomSheet(
+        return MenuBottomSheet(
           menu: selectedMenu,
           onMenu: (orderedMenu) {
             widget.menuscontroller.addOrder(orderedMenu);

@@ -46,12 +46,12 @@ class MenusController extends GetxController {
 
   void addOrder(Menu order) {
     menupick.add(order);
-    _saveOrders();
+    _saveMenus();
   }
 
   void removeOrder(int index) {
     menupick.removeAt(index);
-    _saveOrders();
+    _saveMenus();
   }
 
   void incrementOrderCount(int index) {
@@ -67,11 +67,17 @@ class MenusController extends GetxController {
     if (count > 0) {
       menupick[index].qty = count;
       menupick.refresh();
-      _saveOrders();
+      _saveMenus();
     }
   }
 
-  void _saveOrders() {
+
+  void clearMenus() {
+    menupick.clear();
+    _saveMenus();
+  }
+
+  void _saveMenus() {
     List ordersJson = menupick.map((order) => order.toJson()).toList();
     storage.write('menus_pick', ordersJson);
   }

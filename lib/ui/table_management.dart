@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../controller/table_controller.dart';
+import '../material/order_bottomsheet.dart';
 
 class TableManagement extends StatefulWidget {
   @override
@@ -21,19 +22,27 @@ class _TableManagementState extends State<TableManagement> {
   final MenusController menusController = Get.put(MenusController());
   final OrderController orderController = Get.put(OrderController());
 
-
+  Order order = Order(id: 0, date: "", idTable: 0, idMenu: []);
 
   @override
   Widget build(BuildContext context) {
 
-    // debugPrint("isinyaaa   ${orderController.getAllOrders()}");
-    debugPrint("isinyaaaORDER   ${orderController.loadOrder()?.toJson()}");
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Table Management'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.done_all),
+            onPressed: () {
+              ConfirmOrderBottomSheet.show(context, order);
+            },
+          )
+        ],
       ),
       body: Obx(() {
+        for (var order in orderController.orderPick) {
+          debugPrint("Order data: ${order.toJson()}");
+        }
         if (tableController.sections.isEmpty) {
           return Center(child: CircularProgressIndicator());
         } else {
@@ -62,40 +71,97 @@ class _TableManagementState extends State<TableManagement> {
                       ),
                       itemCount: section.tables.length,
                       itemBuilder: (context, tableIndex) {
+
                         final table = section.tables[tableIndex];
+                        bool isTableOccupied = orderController.orderPick
+                            .any((order) => order.idTable == table.id);
+
+                        int existingOrderIndex = orderController.orderPick
+                            .indexWhere((order) => order.idTable == table.id);
+
+
+
                         return InkWell (
                           onTap: () {
                             setState(() {
-                              var order = Order(id: DateTime.now().microsecond,
-                                  date: Util.formatDateTime(),
-                                  idTable: table.id ,
-                                  idMenu: menusController.getPickedIds());
-                              orderController.saveOrder(order);
 
+                              if (existingOrderIndex != -1) {
+                                orderController.removeOrder(existingOrderIndex);
+                              } else {
+                                var newOrder = Order(
+                                  id: DateTime.now().millisecondsSinceEpoch,
+                                  date: Util.formatDateTime(),
+                                  idTable: table.id,
+                                  idMenu: menusController.getPickedIds(),
+                                  customerName: "picked of ....",
+                                );
+                                order = newOrder;
+                                orderController.addOrder(newOrder);
+                              }
 
                             });
                           },
                           child: Container(
                             decoration: BoxDecoration(
-                              color: table.idOrder == null // kalo meja kosong maka hijau
+                              color: existingOrderIndex == -1 // Meja kosong
                                   ? Colors.green[300]
+                                  : orderController.orderPick[existingOrderIndex].idMenu.isEmpty // Pesanan ada tapi tidak ada menu
+                                  ? Colors.yellow[800]
                                   : Colors.red[300],
                               borderRadius: BorderRadius.circular(8),
                             ),
+
                             child: Center(
                               child: Text(
-                                table.tableNumber,
+                                textAlign: TextAlign.center,
+                                  isTableOccupied ?
+                                  table.tableNumber+"\n"+orderController.orderPick[existingOrderIndex].customerName.toString()
+                                :  table.tableNumber,
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
+
                           ),
                         );
                       },
                     ),
                     SizedBox(height: 20),
+
+
+
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          width: 20,
+                          height: 20,
+                          color: Colors.green[300],
+                        ),
+                        SizedBox(width: 8),
+                        Text('Tersedia'),
+                        SizedBox(width: 16),
+                        Container(
+                          width: 20,
+                          height: 20,
+                          color: Colors.yellow[800],
+                        ),
+                        SizedBox(width: 8),
+                        Text('Reserved'),
+                        SizedBox(width: 16),
+                        Container(
+                          width: 20,
+                          height: 20,
+                          color: Colors.red[300],
+                        ),
+                        SizedBox(width: 8),
+                        Text('Occupied'),
+                      ],
+                    ),
+
                   ],
                 ),
               );

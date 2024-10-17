@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 import '../model/menu.dart';
 
-class OrderBottomSheet extends StatefulWidget {
+class MenuBottomSheet extends StatefulWidget {
   final Menu menu;
   final Function(Menu) onMenu;
   final int initialCount;
 
-  const OrderBottomSheet({
+  const MenuBottomSheet({
     Key? key,
     required this.menu,
     required this.onMenu,
@@ -15,10 +15,10 @@ class OrderBottomSheet extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<OrderBottomSheet> createState() => _OrderBottomSheetState();
+  State<MenuBottomSheet> createState() => _MenuBottomSheetState();
 }
 
-class _OrderBottomSheetState extends State<OrderBottomSheet> {
+class _MenuBottomSheetState extends State<MenuBottomSheet> {
   int count = 1;
 
   @override
