@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:book_restorant/controller/menus_controller.dart';
 import 'package:book_restorant/controller/order_controller.dart';
 import 'package:book_restorant/model/order.dart';
@@ -42,6 +40,7 @@ class _TableManagementState extends State<TableManagement> {
       body: Obx(() {
         for (var order in orderController.orderPick) {
           debugPrint("Order data: ${order.toJson()}");
+
         }
         if (tableController.sections.isEmpty) {
           return Center(child: CircularProgressIndicator());

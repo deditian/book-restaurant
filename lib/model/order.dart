@@ -1,17 +1,18 @@
+import 'package:book_restorant/model/menu.dart';
+
 class Order {
   final int id;
   final String date;
   final int idTable;
   String? customerName;
-  final List<int> idMenu;
+  final List<Menu> idMenu; // Assuming this is a list of Menu objects
 
   Order({
     required this.id,
     required this.date,
     required this.idTable,
     this.customerName,
-    required this.idMenu
-
+    required this.idMenu,
   });
 
   factory Order.fromJson(Map<String, dynamic> json) {
@@ -20,7 +21,9 @@ class Order {
       date: json['date'],
       idTable: json['id_table'],
       customerName: json['customer_name'],
-      idMenu: List<int>.from(json['id_menu']),
+      idMenu: (json['id_menu'] as List<dynamic>)
+          .map((menuJson) => Menu.fromJson(menuJson))
+          .toList(),
     );
   }
 
@@ -30,7 +33,7 @@ class Order {
       'date': date,
       'id_table': idTable,
       'customer_name': customerName,
-      'id_menu': idMenu,
+      'id_menu': idMenu.map((menu) => menu.toJson()).toList(),
     };
   }
 }

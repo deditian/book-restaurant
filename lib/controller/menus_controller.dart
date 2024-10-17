@@ -34,8 +34,8 @@ class MenusController extends GetxController {
 
 
 
-  List<int> getPickedIds() {
-    return menupick.map((menu) => menu.id).toList();
+  List<Menu> getPickedIds() {
+    return menupick.map((menu) => menu).toList();
   }
 
 

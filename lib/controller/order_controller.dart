@@ -28,22 +28,19 @@ class OrderController extends GetxController {
 
   void updateCustomerName(int idTable, String customerName) {
     debugPrint("hasilidTable == ${idTable}");
-    // Temukan indeks pesanan dengan idTable yang cocok
     int index = orderPick.indexWhere((order) => order.idTable == idTable);
     debugPrint("hasilindex == ${index}");
     if (index != -1) {
-      // Buat salinan dari pesanan yang ada
       var updatedOrder = Order(
         id: orderPick[index].id,
         date: orderPick[index].date,
         idTable: orderPick[index].idTable,
-        idMenu: List.from(orderPick[index].idMenu), // Salin idMenu
-        customerName: customerName, // Update nama pelanggan
+        idMenu: List.from(orderPick[index].idMenu),
+        customerName: customerName,
       );
 
       debugPrint("hasilORDER == ${updatedOrder.toJson()}");
 
-      // Ganti pesanan yang lama dengan pesanan yang telah diperbarui
       orderPick[index] = updatedOrder;
       _saveOrder();
     }
