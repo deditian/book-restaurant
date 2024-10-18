@@ -16,7 +16,7 @@ class SalesController extends GetxController {
   }
 
   void loadSales() {
-    List salesJson = box.read('sales');
+    List salesJson = box.read('sales')??[];
     salesList.value = salesJson.map((json) => Sales.fromJson(json)).toList();
   }
 
