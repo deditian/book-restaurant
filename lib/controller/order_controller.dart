@@ -47,6 +47,29 @@ class OrderController extends GetxController {
   }
 
 
+  void updatePaymentMethod(int idOrder, String paymentMethod) {
+    debugPrint("hasilidTable Payment == ${idOrder}");
+    int index = orderPick.indexWhere((order) => order.id == idOrder);
+    debugPrint("hasilindex Payment == ${index}");
+    if (index != -1) {
+      var updatedOrder = Order(
+        id: orderPick[index].id,
+        date: orderPick[index].date,
+        idTable: orderPick[index].idTable,
+        customerName: orderPick[index].customerName,
+        paymentMethod: paymentMethod,
+        idMenu: List.from(orderPick[index].idMenu),
+      );
+
+      debugPrint("hasilORDER Payment == ${updatedOrder.toJson()}");
+
+      orderPick[index] = updatedOrder;
+      _saveOrder();
+    }
+  }
+
+
+
 
   void removeOrder(int index) {
     orderPick.removeAt(index);
@@ -55,6 +78,11 @@ class OrderController extends GetxController {
 
   void clearMenus() {
     menusController.clearMenus();
+  }
+
+  void clearOrders() {
+    orderPick.clear();
+    _saveOrder();
   }
 
   void loadOrder() {

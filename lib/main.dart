@@ -1,3 +1,4 @@
+import 'package:book_restorant/controller/order_controller.dart';
 import 'package:book_restorant/ui/home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,6 +10,7 @@ void main() async {
   await GetStorage.init();
   runApp(const MyApp());
   Get.put(MenusController());
+  Get.put(OrderController());
 }
 
 class MyApp extends StatelessWidget {

@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
   _onItemPage() {
     switch(_selectedIndex) {
       case 3:
-        return const SalesReport();
+        return SalesReport();
       case 2:
         return ProductSettings();
       case 1:

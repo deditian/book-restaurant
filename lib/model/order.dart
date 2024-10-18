@@ -5,13 +5,15 @@ class Order {
   final String date;
   final int idTable;
   String? customerName;
-  final List<Menu> idMenu; // Assuming this is a list of Menu objects
+  String? paymentMethod;
+  final List<Menu> idMenu;
 
   Order({
     required this.id,
     required this.date,
     required this.idTable,
     this.customerName,
+    this.paymentMethod,
     required this.idMenu,
   });
 
@@ -21,6 +23,7 @@ class Order {
       date: json['date'],
       idTable: json['id_table'],
       customerName: json['customer_name'],
+      paymentMethod: json['payment_method'],
       idMenu: (json['id_menu'] as List<dynamic>)
           .map((menuJson) => Menu.fromJson(menuJson))
           .toList(),
@@ -33,6 +36,7 @@ class Order {
       'date': date,
       'id_table': idTable,
       'customer_name': customerName,
+      'payment_method': paymentMethod,
       'id_menu': idMenu.map((menu) => menu.toJson()).toList(),
     };
   }

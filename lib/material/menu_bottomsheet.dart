@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../model/menu.dart';
+import '../ui/utils.dart';
 
 class MenuBottomSheet extends StatefulWidget {
   final Menu menu;
@@ -63,7 +64,7 @@ class _MenuBottomSheetState extends State<MenuBottomSheet> {
                     ),
                     SizedBox(height: 4),
                     Text(
-                      'Harga: ${widget.menu.price.toStringAsFixed(2)}',
+                      'Harga: ${Util.formatRupiah(widget.menu.price)}',
                       style: TextStyle(fontSize: 12),
                     ),
                     SizedBox(height: 4),

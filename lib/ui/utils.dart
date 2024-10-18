@@ -21,4 +21,14 @@ class Util {
     String currentTime = "${now.hour}:${now.minute}";
     return "${currentDate} - ${currentTime}";
   }
+
+  static String currentDate(){
+    DateTime now = DateTime.now();
+    String currentDate = "${now.day}-${now.month}-${now.year}";
+    return "${currentDate}";
+  }
+
+  static String formatRupiah(double amount) {
+    return 'Rp. ${amount.toStringAsFixed(0).replaceAllMapped(RegExp(r'\B(?=(\d{3})+(?!\d))'), (match) => '.')}';
+  }
 }
