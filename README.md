@@ -1,15 +1,3 @@
-# book_restorant
-
-A new Flutter project.
-
-## Getting Started
-
-
-
-
-# book_restorant
-
-
 # Book Restorant
 
 aplikasi sederhana dengan fitur yang sangat efisien dengan kinerja yang baik
@@ -17,7 +5,7 @@ aplikasi sederhana dengan fitur yang sangat efisien dengan kinerja yang baik
 
 
 ## Video
-![Video](video_demo/FlutterDemo_restorant.mp4)
+[![Video](video_demo/FlutterDemo_restorant.mp4)]
 
 
 ## Instalasi
