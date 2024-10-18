@@ -4,14 +4,14 @@ class Sales {
   final int idSales;
   final String dateSale;
   String? salesName;
-  double? totalPriceOrderPerDay;
+  double? totalPrice;
   final List<Order> orders;
 
   Sales({
     required this.idSales,
     required this.dateSale,
     this.salesName,
-    this.totalPriceOrderPerDay,
+    this.totalPrice,
     required this.orders,
   });
 
@@ -20,7 +20,7 @@ class Sales {
       idSales: json['id_sales'],
       dateSale: json['date_sale'],
       salesName: json['sales_name'],
-      totalPriceOrderPerDay: json['total_price_order_per_day'],
+      totalPrice: json['total_price'],
       orders: (json['orders'] as List<dynamic>)
           .map((orderJson) => Order.fromJson(orderJson))
           .toList(),
@@ -32,7 +32,7 @@ class Sales {
       'id_sales': idSales,
       'date_sale': dateSale,
       'sales_name': salesName,
-      'total_price_order_per_day': totalPriceOrderPerDay,
+      'total_price': totalPrice,
       'orders': orders.map((order) => order.toJson()).toList(),
     };
   }

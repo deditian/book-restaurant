@@ -16,25 +16,23 @@ class SalesController extends GetxController {
   }
 
   void loadSales() {
-    List salesJson = box.read('sales') ?? [];
+    List salesJson = box.read('sales');
     salesList.value = salesJson.map((json) => Sales.fromJson(json)).toList();
   }
 
-  void addSales(Sales sales) {
+  Future<void> addSales(Sales sales) async {
     salesList.add(sales);
-    _saveSales();
-  }
-
-
-  void clearOrders() {
+    await _saveSales();
     orderController.clearOrders();
   }
 
-
-  void _saveSales() {
+  Future<void> _saveSales() async {
     List salesJson = salesList.map((sales) => sales.toJson()).toList();
-    box.write('sales', salesJson);
+    await box.write('sales', salesJson);
   }
+
+
+
 
 
 }

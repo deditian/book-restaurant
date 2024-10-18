@@ -1,4 +1,5 @@
 import 'package:book_restorant/controller/order_controller.dart';
+import 'package:book_restorant/controller/sales_controller.dart';
 import 'package:book_restorant/ui/home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

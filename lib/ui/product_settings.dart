@@ -16,7 +16,11 @@ class _ProductSettingsState extends State<ProductSettings> {
   final OrderController orderController = Get.put(OrderController());
   final SalesController salesController = Get.put(SalesController());
   double totalPrice = 0;
-  double totalPriceOrderPerDay = 0 ;
+  // Function to check if all orders have payment methods
+  bool allOrdersPaid() {
+    return orderController.orderPick.every((order) => order.paymentMethod != null);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,8 +38,7 @@ class _ProductSettingsState extends State<ProductSettings> {
                 itemCount: orderController.orderPick.length,
                 itemBuilder: (context, index) {
                   final order = orderController.orderPick[index];
-
-
+                  totalPrice = 0;
                   return Card(
                     margin: EdgeInsets.all(8.0),
                     child: Padding(
@@ -48,7 +51,7 @@ class _ProductSettingsState extends State<ProductSettings> {
                           Text('Table ID: ${order.idTable}'),
                           Text('Customer Name: ${order.customerName ?? 'N/A'}'),
 
-                          // Expandable list for menu items
+
                           ExpansionTile(
                             title: Text('Menu Items (${order.idMenu.length})'),
                             children: order.idMenu.map((menu) {
@@ -97,8 +100,7 @@ class _ProductSettingsState extends State<ProductSettings> {
                               onPressed: () {
                                 PaymentBottomSheet.show(context, (selectedMethod) {
                                   orderController.updatePaymentMethod(order.id, selectedMethod);
-                                  setState(() {
-                                  });
+                                  setState(() {});
                                 });
                               },
                               child: Text('Payment'),
@@ -111,21 +113,22 @@ class _ProductSettingsState extends State<ProductSettings> {
               ),
             ),
 
+            // Complete All Orders Button
             if (orderController.orderPick.isNotEmpty)
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: ElevatedButton(
-                  onPressed: () {
+                  onPressed: allOrdersPaid() ? () {
                     setState(() {
-                      totalPriceOrderPerDay+= totalPrice;
                       var sales = Sales(
-                          idSales: DateTime.now().millisecond,
-                          dateSale: Util.currentDate(),
-                          salesName: "Usop",
-                          totalPriceOrderPerDay: totalPriceOrderPerDay,
-                          orders: orderController.orderPick);
+                        idSales: DateTime.now().millisecondsSinceEpoch,
+                        dateSale: Util.currentDate(),
+                        salesName: "Usop",
+                        totalPrice: totalPrice,
+                        orders: orderController.orderPick,
+                      );
                       salesController.addSales(sales);
-                      orderController.clearOrders();
+
 
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
@@ -134,7 +137,7 @@ class _ProductSettingsState extends State<ProductSettings> {
                         ),
                       );
                     });
-                  },
+                  } : null,  // Disable if not all orders are paid
                   child: Text('Complete All Orders'),
                 ),
               ),

@@ -12,6 +12,15 @@ class SalesReport extends StatefulWidget {
 class _SalesReportState extends State<SalesReport> {
   final SalesController salesController = Get.put(SalesController());
 
+
+
+  @override
+  void initState() {
+    salesController.loadSales();
+    super.initState();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,6 +31,9 @@ class _SalesReportState extends State<SalesReport> {
         if (salesController.salesList.isEmpty) {
           return Center(child: Text('No sales data available.'));
         }
+        for(var asd in salesController.salesList){
+          debugPrint("sales woi  ${asd.toJson()}");
+        }
 
         return Column(
           children: [
@@ -29,8 +41,17 @@ class _SalesReportState extends State<SalesReport> {
               child: ListView.builder(
                 itemCount: salesController.salesList.length,
                 itemBuilder: (context, index) {
+                  double totalnya= 0;
                   final Sales sales = salesController.salesList[index];
 
+                  double totalOrderPrice = sales.orders.fold(
+                    0,
+                        (sum, order) => sum + order.idMenu.fold(
+                      0,
+                          (menuSum, menu) => menuSum + (menu.price * menu.qty!),
+                    ),
+                  );
+                  totalnya += totalOrderPrice;
                   return Card(
                     margin: EdgeInsets.all(8.0),
                     child: Padding(
@@ -41,9 +62,9 @@ class _SalesReportState extends State<SalesReport> {
                           Text('Sales ID: ${sales.idSales}'),
                           Text('Date: ${sales.dateSale}'),
                           Text('Sales Name: ${sales.salesName ?? 'N/A'}'),
-                          Text('Total Price: ${Util.formatRupiah(sales.totalPriceOrderPerDay!)}'),
+                          Text('Total Price: ${Util.formatRupiah(totalnya)}'),
 
-                          // Expandable list for order items
+
                           ExpansionTile(
                             title: Text('Orders (${sales.orders.length})'),
                             children: sales.orders.map((order) {
