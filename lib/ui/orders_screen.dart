@@ -1,4 +1,5 @@
 import 'package:book_restorant/ui/table_management.dart';
+import 'package:book_restorant/ui/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controller/menus_controller.dart';
@@ -66,7 +67,7 @@ class _OrderListScreenState extends State<OrderListScreen> {
                             ),
                             SizedBox(height: 4),
                             Text(
-                              'Price: ${order.price.toStringAsFixed(2)}',
+                              'Price: ${Util.formatRupiah(order.price)}',
                               style: TextStyle(fontSize: 12),
                             ),
                           ],
