@@ -4,13 +4,35 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# book_restorant
+
+
+# Book Restorant
+
+aplikasi sederhana dengan fitur yang sangat efisien dengan kinerja yang baik
+
+
+
+## Video
+![Video](video_demo/FlutterDemo_restorant.mp4)
+
+
+## Instalasi
+1. Unduh APK dari [link ini](apk/app-release.apk).
+2. Aktifkan instalasi dari sumber yang tidak dikenal di perangkat Android Anda.
+3. Instal APK dan jalankan aplikasi.
+
+## Fitur
+1. Sales Transaction
+2. Product Settings
+3. Table Management
+4. Sales Report
+
+## Technology
+- GetX
+- GetStorage
+- Clean Architecture concept
+- Navigation
