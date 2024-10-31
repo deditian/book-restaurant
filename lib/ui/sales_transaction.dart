@@ -17,20 +17,56 @@ class SalesTransaction extends StatefulWidget {
 
 class _SalesTransactionState extends State<SalesTransaction> {
   final MenusController menusController = Get.put(MenusController());
+  final TextEditingController searchController = TextEditingController();
+  String searchQuery = '';
+  bool _isSearchVisible = false;
 
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
+  void updateSearchQuery(String query) {
+    setState(() {
+      searchQuery = query.toLowerCase();
+    });
+  }
+
+  void toggleSearchVisibility() {
+    setState(() {
+      _isSearchVisible = !_isSearchVisible;
+      if (!_isSearchVisible) {
+        searchController.clear();
+        updateSearchQuery('');
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text("Restaurant", style: TextStyle(fontSize: 16)),
-            Container(),
-          ],
-        ),
+        title: _isSearchVisible
+            ? TextField(
+          controller: searchController,
+          decoration: InputDecoration(
+            hintText: 'Search menu...',
+            border: InputBorder.none,
+          ),
+          onChanged: updateSearchQuery,
+        )
+            : Text("Restaurant", style: TextStyle(fontSize: 16)),
         actions: [
+          _isSearchVisible
+              ? IconButton(
+            icon: Icon(Icons.close),
+            onPressed: toggleSearchVisibility,
+          )
+              : IconButton(
+            icon: Icon(Icons.search),
+            onPressed: toggleSearchVisibility,
+          ),
           // Cart icon with order count
           Obx(() {
             return Stack(
@@ -44,7 +80,6 @@ class _SalesTransactionState extends State<SalesTransaction> {
                     );
                   },
                 ),
-                // Show number of orders
                 if (menusController.orderCount > 0)
                   Positioned(
                     right: 1,
@@ -74,18 +109,19 @@ class _SalesTransactionState extends State<SalesTransaction> {
           }),
         ],
       ),
-      body: SalesTransactionScreen(menusController),
+      body: SalesTransactionScreen(menusController, searchQuery),
     );
   }
 }
 
 class SalesTransactionScreen extends StatefulWidget {
   final MenusController menuscontroller;
+  final String searchQuery;
 
   const SalesTransactionScreen(
       this.menuscontroller,
-      {super.key});
-
+      this.searchQuery, {super.key}
+      );
 
   @override
   State<SalesTransactionScreen> createState() => _SalesTransactionScreenState();
@@ -94,12 +130,10 @@ class SalesTransactionScreen extends StatefulWidget {
 class _SalesTransactionScreenState extends State<SalesTransactionScreen> {
   final CategoryController controller = Get.put(CategoryController());
 
-
-
   void showOrderBottomSheet(Menu selectedMenu) {
     showModalBottomSheet(
       context: context,
-      isScrollControlled: true, // Membuat BottomSheet scrollable
+      isScrollControlled: true,
       builder: (BuildContext context) {
         return MenuBottomSheet(
           menu: selectedMenu,
@@ -139,7 +173,6 @@ class _SalesTransactionScreenState extends State<SalesTransactionScreen> {
                         setState(() {
                           controller.setCategory(category.name);
                         });
-
                       },
                       child: Center(
                         child: Container(
@@ -191,17 +224,21 @@ class _SalesTransactionScreenState extends State<SalesTransactionScreen> {
           Expanded(
             child: Center(
               child: Obx(() {
-                return widget.menuscontroller.itemsMenu.isNotEmpty
+                var filteredMenus = widget.menuscontroller.itemsMenu
+                    .where((menu) => menu.name.toLowerCase().contains(widget.searchQuery))
+                    .toList();
+
+                return filteredMenus.isNotEmpty
                     ? GridView.count(
                   crossAxisCount: 3,
                   crossAxisSpacing: 16,
                   mainAxisSpacing: 16,
-                  children: widget.menuscontroller.itemsMenu.map((menu) {
+                  children: filteredMenus.map((menu) {
                     return Card(
                       elevation: 1,
                       child: InkWell(
                         onTap: () {
-                            showOrderBottomSheet(menu);
+                          showOrderBottomSheet(menu);
                         },
                         child: Center(
                           child: Container(
@@ -249,7 +286,4 @@ class _SalesTransactionScreenState extends State<SalesTransactionScreen> {
       ),
     );
   }
-
-
 }
-
