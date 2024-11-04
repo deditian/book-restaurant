@@ -1,11 +1,15 @@
 import 'package:book_restorant/model/order.dart';
+import 'package:book_restorant/ui/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import '../controller/order_controller.dart';
 
 class ConfirmOrderBottomSheet {
-  static void show(BuildContext context, Order order) {
+  static void show(
+      BuildContext context,
+      Order order, {
+        required void Function() onOrderConfirmed,
+      }) {
     TextEditingController nameController = TextEditingController();
     final OrderController orderController = Get.find<OrderController>();
 
@@ -44,40 +48,35 @@ class ConfirmOrderBottomSheet {
 
                   if (customerName.isEmpty) {
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Nama pemesan harus diisi'),
-                        backgroundColor: Colors.red,
-                      ),
+                    Util.showSnackbar(
+                      context,
+                      message: 'Nama pemesan harus diisi',
+                      backgroundColor: Colors.red,
                     );
-                    Navigator.pop(context);
 
                   } else if (orderController.orderPick.isEmpty) {
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Tidak ada pesanan yang dipilih.'),
-                        backgroundColor: Colors.red,
-                      ),
+                    Util.showSnackbar(
+                      context,
+                      message: 'Tidak ada pesanan yang dipilih.',
+                      backgroundColor: Colors.red,
                     );
-                    Navigator.pop(context);
 
                   } else {
-
-
-                      orderController.updateCustomerName(order.idTable, customerName);
+                    orderController.updateCustomerName(order.idTable, customerName);
 
                     orderController.clearMenus();
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Pemesanan atas nama $customerName telah disimpan'),
-                        backgroundColor: Colors.green,
-                      ),
+                    Util.showSnackbar(
+                      context,
+                      message: 'Pemesanan atas nama $customerName telah disimpan',
+                      backgroundColor: Colors.green,
                     );
 
-                    Navigator.pop(context);
+                    onOrderConfirmed();
+
                   }
+                  Navigator.pop(context);
                 },
                 child: Text("Simpan Pemesanan"),
               ),
@@ -87,6 +86,4 @@ class ConfirmOrderBottomSheet {
       },
     );
   }
-
-
 }

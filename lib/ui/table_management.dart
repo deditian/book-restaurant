@@ -30,9 +30,9 @@ class _TableManagementState extends State<TableManagement> {
         title: Text('Table Management'),
         actions: [
           IconButton(
-            icon: Icon(Icons.done_all),
+            icon: Icon(Icons.list),
             onPressed: () {
-              ConfirmOrderBottomSheet.show(context, order);
+
             },
           )
         ],
@@ -84,6 +84,9 @@ class _TableManagementState extends State<TableManagement> {
                           onTap: () {
                             setState(() {
 
+
+
+
                               if (existingOrderIndex != -1) {
                                 orderController.removeOrder(existingOrderIndex);
                               } else {
@@ -96,6 +99,15 @@ class _TableManagementState extends State<TableManagement> {
                                 );
                                 order = newOrder;
                                 orderController.addOrder(newOrder);
+
+
+                                ConfirmOrderBottomSheet.show(
+                                  context,
+                                  order,
+                                  onOrderConfirmed: () {
+
+                                  },
+                                );
                               }
 
                             });

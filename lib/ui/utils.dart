@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' as root_bundle;
 
 class Util {
@@ -30,5 +31,20 @@ class Util {
 
   static String formatRupiah(double amount) {
     return 'Rp. ${amount.toStringAsFixed(0).replaceAllMapped(RegExp(r'\B(?=(\d{3})+(?!\d))'), (match) => '.')}';
+  }
+
+  static void showSnackbar(
+      BuildContext context, {
+        required String message,
+        Color backgroundColor = Colors.black,
+        Duration duration = const Duration(seconds: 2),
+      }) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: backgroundColor,
+        duration: duration,
+      ),
+    );
   }
 }
